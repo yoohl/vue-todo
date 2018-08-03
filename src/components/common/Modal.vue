@@ -15,7 +15,17 @@
               default body
             </slot>
           </div>
+
+          <div class="modal-footer">
+            <slot name="footer">
+              <button class="modal-default-button" @click="$emit('close')">
+                <i class="fas fa-times"></i>
+              </button>
+            </slot>
+          </div>
+
         </div>
+        
       </div>
     </div>
   </transition>
@@ -40,6 +50,7 @@
 }
 
 .modal-container {
+  position: relative;
   width: 300px;
   margin: 0px auto;
   padding: 20px 30px;
@@ -60,7 +71,11 @@
 }
 
 .modal-default-button {
-  float: right;
+  position: absolute;
+  top:30px;
+  right:30px;
+  background:none;
+  border:none;
 }
 
 /*

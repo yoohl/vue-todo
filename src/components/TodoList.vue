@@ -1,6 +1,6 @@
 <template>
   <section>
-    <ul>
+    <transition-group name="list" tag="ul">
       <li 
         class="shadow" 
         v-bind:class="{editShow: todoItem.editing}"
@@ -36,31 +36,31 @@
           </span>
         </span>
       </li>
-    </ul>
+    </transition-group>
   </section>
 </template>
 
 <script>
 export default {
   props: ['propsdata'],
-  data: function() {
+  data() {
     return {
       editItem: '' // 동적 데이터로 넣으려면 에러..
     }
   },
   methods: {
-    editTodo: function(todoItem, index) {
+    editTodo(todoItem, index) {
       this.toggleEdit(todoItem, index);
       this.$emit('editTodoItem', index, this.editItem)
     },
-    toggleEdit: function(todoItem, index) {
+    toggleEdit(todoItem, index) {
       todoItem.editing = !todoItem.editing;
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem))
     },
-    removeTodo: function(index) {
+    removeTodo(index) {
       this.$emit('removeTodoItem', index)
     },
-    toggleComplete: function(todoItem, index) {
+    toggleComplete(todoItem, index) {
       todoItem.completed = !todoItem.completed;
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     }
@@ -111,4 +111,18 @@ li {
 .editShow .editInput{display:block}
 .editShow .item,
 .editShow .btnWrap{display:none;}
+
+/* 리스트 트랜지션 */
+.list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-enter-active, .list-leave-active {
+  transition: all .5s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
 </style>
