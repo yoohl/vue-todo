@@ -1,15 +1,9 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
-    <TodoList 
-      v-bind:propsdata="todoItems"
-      v-on:removeTodoItem="removeOneItem"
-      v-on:editTodoItem="editOneItem"
-    ></TodoList>
-    <TodoFooter
-      v-on:clearTodoItem="clearItem"  
-    ></TodoFooter>
+    <TodoInput></TodoInput>
+    <TodoList></TodoList>
+    <TodoFooter></TodoFooter>
   </div>
 </template>
 
@@ -26,34 +20,7 @@ export default {
     }
   },
   methods: {
-    addOneItem(newItem) {
-      const obj = {completed: false, editing: false, item: newItem};
-      localStorage.setItem(newItem, JSON.stringify(obj));
-      this.todoItems.push(obj)
-    },
-    removeOneItem(index) {
-      localStorage.removeItem(this.todoItems[index].item);
-      this.todoItems.splice(index, 1);
-    },
-    editOneItem(index, editItem) {
-      const obj = {completed: false, editing: false, item: editItem};
-      localStorage.removeItem(this.todoItems[index].item);
-      localStorage.setItem(editItem, JSON.stringify(obj))
-      this.todoItems.splice(index,1, obj)
-    },
-    clearItem() {
-      localStorage.clear();
-      this.todoItems = []
-    }
-  },
-  created() {
-    if (localStorage.length > 0) {
-      for (let i = 0; i < localStorage.length; i++) {
-        if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
-          this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-        }
-      }
-    }
+
   },
   components: {
     TodoHeader,

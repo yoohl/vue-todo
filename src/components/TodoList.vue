@@ -4,8 +4,8 @@
       <li 
         class="shadow" 
         v-bind:class="{editShow: todoItem.editing}"
-        v-for="(todoItem, index) in propsdata" 
-        :key="todoItem.item">
+        v-for="(todoItem, index) in this.$store.state.todoItems" 
+        :key="index">
         <i class="checkBtn fas fa-check" 
           v-bind:class="{checkBtnCompleted: todoItem.completed}" 
           v-on:click="toggleComplete(todoItem, index)">
@@ -42,7 +42,6 @@
 
 <script>
 export default {
-  props: ['propsdata'],
   data() {
     return {
       editItem: '' // 동적 데이터로 넣으려면 에러..
@@ -51,19 +50,32 @@ export default {
   methods: {
     editTodo(todoItem, index) {
       this.toggleEdit(todoItem, index);
-      this.$emit('editTodoItem', index, this.editItem)
-    },
-    toggleEdit(todoItem, index) {
-      todoItem.editing = !todoItem.editing;
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem))
+      this.$store.commit({
+        type: 'editOneItem',
+        index, 
+        editItem: this.editItem 
+      })
     },
     removeTodo(index) {
-      this.$emit('removeTodoItem', index)
+      this.$store.commit('removeOneItem', index)
+    },
+    toggleEdit(todoItem, index) {
+      this.editItem = this.$store.state.todoItems[index].item;
+      this.$store.commit({
+        type: 'toggleItem', 
+        todoItem, 
+        index, 
+        toggleName: 'editing' 
+      })
     },
     toggleComplete(todoItem, index) {
-      todoItem.completed = !todoItem.completed;
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
-    }
+      this.$store.commit({
+        type: 'toggleItem', 
+        todoItem, 
+        index, 
+        toggleName: 'completed' 
+      })
+    },
   },
   
 }

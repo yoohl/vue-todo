@@ -7,8 +7,8 @@
 <script>
 export default {
   methods: {
-    clearTodo: function() {
-      this.$emit('clearTodoItem')
+    clearTodo() {
+      this.$store.commit('clearTodoItem')
     }
   }
 }
