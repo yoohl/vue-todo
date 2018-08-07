@@ -32,8 +32,7 @@ export const store = new Vuex.Store({
       state.todoItems.splice(index, 1);
 		},
 		editOneItem(state, payload) {
-			// console.log('수정', payload.index, payload.editItem)
-      const obj = {completed: false, editing: false, item: payload.editItem};
+			const obj = {completed: false, editing: false, item: payload.editItem};
       localStorage.removeItem(state.todoItems[payload.index].item);
       localStorage.setItem(payload.editItem, JSON.stringify(obj))
       state.todoItems.splice(payload.index, 1, obj)
@@ -43,8 +42,8 @@ export const store = new Vuex.Store({
       localStorage.setItem(payload.todoItem.item, JSON.stringify(payload.todoItem));
     },
 		clearTodoItem(state) {
-      localStorage.clear();
-      state.todoItems = []
+			localStorage.clear();
+			state.todoItems = []
     }
 	}
 });

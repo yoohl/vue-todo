@@ -6,6 +6,7 @@
         v-bind:class="{editShow: todoItem.editing}"
         v-for="(todoItem, index) in this.$store.state.todoItems" 
         :key="index">
+
         <i class="checkBtn fas fa-check" 
           v-bind:class="{checkBtnCompleted: todoItem.completed}" 
           v-on:click="toggleComplete(todoItem, index)">
@@ -16,6 +17,7 @@
             v-model="editItem"
             v-on:keyup.enter="editTodo(todoItem, index)"
           >
+        
           <span class="" v-on:click="editTodo(todoItem, index)">
             <i class="editBtn far fa-edit"></i>
           </span>
@@ -44,12 +46,11 @@
 export default {
   data() {
     return {
-      editItem: '' // 동적 데이터로 넣으려면 에러..
+      editItem: '' 
     }
   },
   methods: {
     editTodo(todoItem, index) {
-      this.toggleEdit(todoItem, index);
       this.$store.commit({
         type: 'editOneItem',
         index, 
