@@ -1,6 +1,8 @@
 # vue-todo
 
-> A Vue.js project
+- 뷰를 이용한 todo list 앱
+- localStorage 속성을 활용하여 vuex 적용,
+데이터의 추가/수정/삭제가 가능하다.
 
 ## Build Setup
 
@@ -15,4 +17,3 @@ npm run dev
 npm run build
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
